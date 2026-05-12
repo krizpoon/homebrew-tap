@@ -5,7 +5,7 @@ class Copybara < Formula
 
   on_macos do
     url "https://github.com/krizpoon/copybara-releases/releases/download/v1.0.0/copybara-app.zip"
-    sha256 "3d3f8f0e0dbf25459f6e2f13412eecf6fe4fa7d5c20412cd92099219749b5448"
+    sha256 "74ff8543e120808e0cf519a017340b03c57edc57688b467e4e7b42337fd9312c"
   end
 
   def install
