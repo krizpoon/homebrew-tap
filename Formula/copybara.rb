@@ -4,12 +4,15 @@ class Copybara < Formula
   version "1.0.0"
 
   on_macos do
-    url "https://github.com/krizpoon/copybara-releases/releases/download/v1.0.0/copybara.zip"
-    sha256 "e90f73e86b454aa08c06996a2029a5a9becf535b62495348be3c6720fa4f2a6f"
+    url "https://github.com/krizpoon/copybara-releases/releases/download/v1.0.0/copybara-app.zip"
+    sha256 "3d3f8f0e0dbf25459f6e2f13412eecf6fe4fa7d5c20412cd92099219749b5448"
   end
 
   def install
-    bin.install "copybara"
+    # Keep the .app bundle intact so the embedded provisioning profile
+    # (required for CloudKit/iCloud access) remains valid at runtime.
+    libexec.install "copybara.app"
+    bin.write_exec_script libexec/"copybara.app/Contents/MacOS/copybara"
   end
 
   test do
