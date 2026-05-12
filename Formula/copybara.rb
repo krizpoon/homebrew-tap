@@ -4,7 +4,7 @@ class Copybara < Formula
   version "1.0.0"
 
   on_macos do
-    url "https://github.com/krizpoon/copybara/releases/download/v1.0.0/copybara.zip"
+    url "https://github.com/krizpoon/copybara-releases/releases/download/v1.0.0/copybara.zip"
     sha256 "e90f73e86b454aa08c06996a2029a5a9becf535b62495348be3c6720fa4f2a6f"
   end
 
