@@ -13,6 +13,7 @@ class Copybara < Formula
     # (required for CloudKit/iCloud access) remains valid at runtime.
     libexec.install "copybara.app"
     bin.write_exec_script libexec/"copybara.app/Contents/MacOS/copybara"
+    bin.install_symlink bin/"copybara" => "cb"
   end
 
   test do
