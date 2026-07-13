@@ -16,6 +16,19 @@ class Copybara < Formula
     bin.install_symlink bin/"copybara" => "cb"
   end
 
+  # Event-driven hook watching: `brew services start copybara`.
+  # Runs the app binary directly (not the bin exec-script) so the process keeps
+  # its .app bundle identity + embedded provisioning profile — required for the
+  # push entitlement. keep_alive because macOS won't relaunch a quit agent on a
+  # CloudKit push. Runs as a user agent (needs the user's iCloud session), not
+  # root. See docs/push-hooks.md; needs a build signed with the push profile.
+  service do
+    run [opt_libexec/"copybara.app/Contents/MacOS/copybara", "watch", "--push"]
+    keep_alive true
+    log_path var/"log/copybara-watch.log"
+    error_log_path var/"log/copybara-watch.err.log"
+  end
+
   test do
     assert_match "Usage", shell_output("#{bin}/copybara help")
   end
