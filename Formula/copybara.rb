@@ -1,11 +1,11 @@
 class Copybara < Formula
   desc "CLI for Copybara clipboard sync — post text and files to streams via iCloud"
   homepage "https://github.com/krizpoon/copybara"
-  version "1.6.1"
+  version "1.7.0"
 
   on_macos do
-    url "https://github.com/krizpoon/copybara-releases/releases/download/v1.6.1/copybara-app.zip"
-    sha256 "bbe129405bfd3458d900187c809ae60332fed21cb4f66033dd862501c3bb85e0"
+    url "https://github.com/krizpoon/copybara-releases/releases/download/v1.7.0/copybara-app.zip"
+    sha256 "7842fd51cdfedc46f6a5e3ae036516c30c9d22b296c7d1b2c43a47ff4c09fde1"
   end
 
   def install
