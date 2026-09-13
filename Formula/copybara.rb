@@ -1,11 +1,11 @@
 class Copybara < Formula
   desc "CLI for Copybara clipboard sync — post text and files to streams via iCloud"
   homepage "https://github.com/krizpoon/copybara"
-  version "1.8.0"
+  version "2.0.0"
 
   on_macos do
-    url "https://github.com/krizpoon/copybara-releases/releases/download/v1.8.0/copybara-app.zip"
-    sha256 "51755038eaf88f77525d31d35c4d238176ee80e4b51b78ea131bba56a26fa9fa"
+    url "https://github.com/krizpoon/copybara-releases/releases/download/v2.0.0/copybara-app.zip"
+    sha256 "4a05a8aa54e5c526513e931da9da6cb1b1dd51fbd86939b7cfec30ca45c94d58"
   end
 
   def install
@@ -16,14 +16,20 @@ class Copybara < Formula
     bin.install_symlink bin/"copybara" => "cb"
   end
 
-  # Event-driven hook watching: `brew services start copybara`.
+  # Hook watching: `brew services start copybara`.
   # Runs the app binary directly (not the bin exec-script) so the process keeps
   # its .app bundle identity + embedded provisioning profile — required for the
   # push entitlement. keep_alive because macOS won't relaunch a quit agent on a
   # CloudKit push. Runs as a user agent (needs the user's iCloud session), not
   # root. See docs/push-hooks.md; needs a build signed with the push profile.
+  #
+  # No --push: watching always registers for push and polls behind it, and the
+  # agent tightens the poll by itself if registration fails. The flag was
+  # removed in the CLI release this formula points at — keep_alive means a plist
+  # that outruns the binary respawns a failing agent every few seconds, so this
+  # line and the version above must move together.
   service do
-    run [opt_libexec/"copybara.app/Contents/MacOS/copybara", "watch", "--push"]
+    run [opt_libexec/"copybara.app/Contents/MacOS/copybara", "hook", "watch"]
     keep_alive true
     log_path var/"log/copybara-watch.log"
     error_log_path var/"log/copybara-watch.err.log"
