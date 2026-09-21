@@ -16,6 +16,17 @@ class Copybara < Formula
     bin.install_symlink bin/"copybara" => "cb"
   end
 
+  def caveats
+    <<~EOS
+      Claude Code plugin — teaches an agent to post clips and set up hooks:
+        /plugin marketplace add krizpoon/copybara-releases
+        /plugin install copybara@copybara
+
+      Run hooks in the background (a command per arriving clip):
+        brew services start krizpoon/tap/copybara
+    EOS
+  end
+
   # Hook watching: `brew services start copybara`.
   # Runs the app binary directly (not the bin exec-script) so the process keeps
   # its .app bundle identity + embedded provisioning profile — required for the
